@@ -1,5 +1,5 @@
 Warning: Using a password on the command line interface can be insecure.
-ERROR 1451 (23000) at line 42: Cannot delete or update a parent row: a foreign key constraint fails (`jjosep56assign2db`.`customer`, CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`dealswith`) REFERENCES `agent` (`agentid`))
+ERROR 1451 (23000) at line 45: Cannot delete or update a parent row: a foreign key constraint fails (`jjosep56assign2db`.`customer`, CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`dealswith`) REFERENCES `agent` (`agentid`))
 --------------
 SELECT * FROM agent
 --------------
@@ -23,7 +23,7 @@ customerid	firstnameC	lastnameC	cityC	phonenumber	dealswith
 14	Peter	Griffens	Providence	987-4567	99
 15	Fred	Flintstone	Boston	777-2345	11
 21	Homer	Simpson	Springfield	686-8956	99
-31	Sideshow	Bob	Springfield	686-5555	12
+31	Sideshow	Bob	Springfield	686-5555	66
 --------------
 SELECT * FROM product
 --------------
@@ -32,7 +32,6 @@ productid	description	cost	quantity
 11	Bike	150	200
 12	Socks	2	100
 66	Elbow pads	14.25	120
-69	Wrist band	10	100
 78	Knee Pads	12.15	70
 88	Roller Blades	75	89
 99	Helmet	29	30
@@ -97,7 +96,6 @@ productid	description	cost	quantity
 11	Bike	150	200
 12	Socks	2	100
 66	Elbow pads	14.25	120
-69	Wrist band	10	100
 78	Knee Pads	12.15	70
 88	Roller Blades	75	89
 99	Helmet	29	30
@@ -117,6 +115,18 @@ productid	description	cost	quantity
 78	Knee Pads	12.15	70
 88	Roller Blades	75	89
 99	Helmet	29	30
+--------------
+SELECT * FROM agent
+--------------
+
+agentid	firstnameA	lastnameA	cityA	commission
+11	Regis	Philbin	Boston	33
+12	Rosie	Cox	Ottawa	50
+18	Jermiah	Joseph	Toronto	100
+22	Courtney	Cox	New York	25
+33	David	Letterman	Bedrock	100
+66	Rosie	ODonnell	Ottawa	100
+99	Hugh	Grant	Springfield	16
 --------------
 DELETE FROM agent
 WHERE cityA = "Springfield"

@@ -170,4 +170,4 @@ WHERE customerid IN ( SELECT customerid
 
 firstnameA	lastnameA
 Regis	Philbin
-Rosie	Cox
+Rosie	ODonnell

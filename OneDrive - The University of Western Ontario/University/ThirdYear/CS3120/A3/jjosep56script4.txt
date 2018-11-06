@@ -38,6 +38,9 @@ WHERE description = "Wrist band";
 SELECT * FROM product;
 
 
+-- Show agents table before
+SELECT * FROM agent;
+
 -- Delete Agents from Springfield
 DELETE FROM agent
 WHERE cityA = "Springfield";

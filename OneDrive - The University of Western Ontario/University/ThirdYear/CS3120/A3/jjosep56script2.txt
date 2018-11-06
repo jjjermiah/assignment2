@@ -29,7 +29,7 @@ INSERT INTO agent VALUES('18','Jermiah','Joseph','Toronto','100');
 -- insert into customer
 -- 	agent that deals with customer is included here because every customer must have an agent 
 INSERT INTO customer VALUES('21','Homer','Simpson','Springfield','686-8956','99');
-INSERT INTO customer VALUES('31','Sideshow','Bob','Springfield','686-5555','12');
+INSERT INTO customer VALUES('31','Sideshow','Bob','Springfield','686-5555','66');
 INSERT INTO customer VALUES('12','Monty','Burns','Springfield','789-0000','99');
 INSERT INTO customer VALUES('15','Fred','Flintstone','Bedrock','777-2345','11');
 INSERT INTO customer VALUES('13','Super','Man','Kypto','888-1234','33');
@@ -40,19 +40,13 @@ INSERT INTO customer VALUES('14','Peter','Griffens','Providence','987-4567','99'
 INSERT INTO purchases VALUES('99','21', 20);
 INSERT INTO purchases VALUES('12','21', 14);
 INSERT INTO purchases VALUES('66','21', 10);
-INSERT INTO purchases VALUES('78','31', 1);
+INSERT INTO purchases VALUES('78','31', 4);
 INSERT INTO purchases VALUES('12','31', 2);
-INSERT INTO purchases VALUES('99','31', 4);
+INSERT INTO purchases VALUES('99','31', 1);
 INSERT INTO purchases VALUES('66','31', 2);
 INSERT INTO purchases VALUES('66','15', 2);
 INSERT INTO purchases VALUES('78','15', 2);
 INSERT INTO purchases VALUES('66','14', 19);
-
--- insert agent info into customer
-UPDATE customer SET dealswith = 99 WHERE firstnameC = 'Homer' OR firstnameC = 'Monty' OR firstnameC = 'Peter';
-UPDATE customer SET dealswith = 33 WHERE firstnameC = 'Super';
-UPDATE customer SET dealswith = 11 WHERE firstnameC = 'Barney' OR firstnameC = 'Fred';
-UPDATE customer SET dealswith = 12 WHERE firstnameC = 'Sideshow';
 
 -- Prove inserts worked
 SELECT * FROM agent;
