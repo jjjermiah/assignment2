@@ -1,0 +1,91 @@
+-- Jermiah Joseph Script 3
+
+-- Use the correct database
+USE jjosep56assign2db;
+
+-- Query 1
+SELECT description
+FROM product;
+
+-- Query 2
+SELECT DISTINCT cityC
+FROM customer;
+
+-- Query 3
+SELECT * FROM agent
+ORDER BY cityA;
+
+-- Query 4
+SELECT firstnameC, lastnameC
+FROM customer
+WHERE cityC = "Springfield";
+
+-- Query 5
+SELECT lastnameC
+FROM customer
+WHERE dealswith IN ( SELECT agentid FROM agent WHERE firstnameA = "Regis");
+
+-- Query 6
+SELECT description
+FROM product
+WHERE description
+LIKE '%pad%' OR description LIKE '%pad%';
+
+-- Query 7
+SELECT customer.lastnameC, product.description, purchases.quantitypurch
+FROM customer, product, purchases
+WHERE customer.customerid = purchases.customerid AND product.productid = purchases.productid;
+
+-- Query 8
+SELECT sum(quantitypurch) AS "Homer's Total Purchases"
+FROM purchases
+WHERE customerid = (SELECT customerid FROM customer WHERE firstnameC = 'Homer');
+
+-- Query 9
+SELECT customer.firstnameC, customer.lastnameC, sum(purchases.quantitypurch)
+FROM customer, purchases
+WHERE  customer.customerid = purchases.customerid
+GROUP BY purchases.customerid;
+
+-- Query 10
+SELECT description, quantity
+FROM product
+WHERE productid NOT IN (SELECT productid FROM purchases);
+
+-- Query 11
+SELECT description, quantity
+FROM product
+WHERE productid NOT IN (
+        SELECT productid
+        FROM purchases
+        INNER JOIN customer ON purchases.customerid = customer.customerID AND customer.firstnameC="fred");
+
+-- Query 12
+SELECT a1.firstnameA, a1.lastnameA, c1.firstnameC, c1.lastnameC
+FROM agent a1
+INNER JOIN customer c1 ON a1.agentid = c1.dealswith
+WHERE a1.cityA = c1.cityC;
+
+-- Query 13
+SELECT SUM(quantitypurch) AS "Total Knee Pads Purchased"
+FROM purchases
+WHERE productid = (SELECT productid
+                        FROM product
+                        WHERE description ="Knee Pads");
+
+-- Query 14
+SELECT description
+FROM product
+WHERE productid IN (SELECT productid
+                FROM purchases
+                GROUP BY productid HAVING COUNT(*) >3);
+
+-- QUERY 15
+
+SELECT DISTINCT firstnameA, lastnameA
+FROM agent
+INNER JOIN customer ON agent.agentid = customer.dealswith
+WHERE customerid IN ( SELECT customerid
+                        FROM purchases
+                        INNER JOIN product ON purchases.productid = product.productid
+                        WHERE product.description = "Knee Pads");

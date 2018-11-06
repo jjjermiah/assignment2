@@ -1,0 +1,51 @@
+-- Jermiah Joseph Script 4
+
+-- Use the correct database
+USE jjosep56assign2db;
+
+-- Print all the tables
+SELECT * FROM agent;
+SELECT * FROM customer;
+SELECT * FROM product;
+SELECT * FROM purchases;
+
+-- Drop view in case it already exists
+DROP VIEW IF EXISTS CustomerPurchases;
+
+-- Create the view as required
+CREATE VIEW CustomerPurchases AS
+SELECT firstnameC, lastnameC, description, quantitypurch, cost, (quantitypurch * cost) AS "TotalCost"
+FROM product
+INNER JOIN purchases ON product.productid = purchases.productid
+INNER JOIN customer ON customer.customerid = purchases.customerid;
+
+-- Display the view
+SELECT * FROM CustomerPurchases;
+
+-- Select rows where totalcost is over 100
+SELECT *
+FROM CustomerPurchases
+WHERE TotalCost > 100;
+
+-- Show product table before
+SELECT * FROM product;
+
+-- Delete the product I came up with
+DELETE FROM product
+WHERE description = "Wrist band";
+
+-- Show produt table after
+SELECT * FROM product;
+
+
+-- Delete Agents from Springfield
+DELETE FROM agent
+WHERE cityA = "Springfield";
+-- The row in agents where the agents are from Spingfield cannot be deleted since AgentID is a foreign key in the customer table
+
+
+
+
+
+
+
