@@ -1,0 +1,106 @@
+Warning: Using a password on the command line interface can be insecure.
+--------------
+SELECT description
+FROM product
+--------------
+
+--------------
+SELECT DISTINCT cityC
+FROM customer
+--------------
+
+--------------
+SELECT * FROM agent
+ORDER BY cityA
+--------------
+
+--------------
+SELECT firstnameC, lastnameC
+FROM customer
+WHERE cityC = "Springfield"
+--------------
+
+--------------
+SELECT lastnameC
+FROM customer
+WHERE dealswith IN ( SELECT agentid FROM agent WHERE firstnameA = "Regis")
+--------------
+
+--------------
+SELECT description
+FROM product
+WHERE description
+LIKE '%pad%' OR description LIKE '%pad%'
+--------------
+
+--------------
+SELECT customer.lastnameC, product.description, purchases.quantitypurch
+FROM customer, product, purchases
+WHERE customer.customerid = purchases.customerid AND product.productid = purchases.productid
+--------------
+
+--------------
+SELECT sum(quantitypurch) AS "Homer's Total Purchases"
+FROM purchases
+WHERE customerid = (SELECT customerid FROM customer WHERE firstnameC = 'Homer')
+--------------
+
+Homer's Total Purchases
+NULL
+--------------
+SELECT customer.firstnameC, customer.lastnameC, sum(purchases.quantitypurch)
+FROM customer, purchases
+WHERE  customer.customerid = purchases.customerid
+GROUP BY purchases.customerid
+--------------
+
+--------------
+SELECT description, quantity
+FROM product
+WHERE productid NOT IN (SELECT productid FROM purchases)
+--------------
+
+--------------
+SELECT description, quantity
+FROM product
+WHERE productid NOT IN (
+        SELECT productid
+        FROM purchases
+        INNER JOIN customer ON purchases.customerid = customer.customerID AND customer.firstnameC="fred")
+--------------
+
+--------------
+SELECT a1.firstnameA, a1.lastnameA, c1.firstnameC, c1.lastnameC
+FROM agent a1
+INNER JOIN customer c1 ON a1.agentid = c1.dealswith
+WHERE a1.cityA = c1.cityC
+--------------
+
+--------------
+SELECT SUM(quantitypurch) AS "Total Knee Pads Purchased"
+FROM purchases
+WHERE productid = (SELECT productid
+                        FROM product
+                        WHERE description ="Knee Pads")
+--------------
+
+Total Knee Pads Purchased
+NULL
+--------------
+SELECT description
+FROM product
+WHERE productid IN (SELECT productid
+                FROM purchases
+                GROUP BY productid HAVING COUNT(*) >3)
+--------------
+
+--------------
+SELECT DISTINCT firstnameA, lastnameA
+FROM agent
+INNER JOIN customer ON agent.agentid = customer.dealswith
+WHERE customerid IN ( SELECT customerid
+                        FROM purchases
+                        INNER JOIN product ON purchases.productid = product.productid
+                        WHERE product.description = "Knee Pads")
+--------------
+

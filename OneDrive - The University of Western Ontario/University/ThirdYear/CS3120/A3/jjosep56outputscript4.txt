@@ -1,0 +1,57 @@
+Warning: Using a password on the command line interface can be insecure.
+--------------
+SELECT * FROM agent
+--------------
+
+--------------
+SELECT * FROM customer
+--------------
+
+--------------
+SELECT * FROM product
+--------------
+
+--------------
+SELECT * FROM purchases
+--------------
+
+--------------
+DROP VIEW IF EXISTS CustomerPurchases
+--------------
+
+--------------
+CREATE VIEW CustomerPurchases AS
+SELECT firstnameC, lastnameC, description, quantitypurch, cost, (quantitypurch * cost) AS "TotalCost"
+FROM product
+INNER JOIN purchases ON product.productid = purchases.productid
+INNER JOIN customer ON customer.customerid = purchases.customerid
+--------------
+
+--------------
+SELECT * FROM CustomerPurchases
+--------------
+
+--------------
+SELECT *
+FROM CustomerPurchases
+WHERE TotalCost > 100
+--------------
+
+--------------
+SELECT * FROM product
+--------------
+
+--------------
+DELETE FROM product
+WHERE description = "Wrist band"
+--------------
+
+--------------
+SELECT * FROM product
+--------------
+
+--------------
+DELETE FROM agent
+WHERE cityA = "Springfield"
+--------------
+

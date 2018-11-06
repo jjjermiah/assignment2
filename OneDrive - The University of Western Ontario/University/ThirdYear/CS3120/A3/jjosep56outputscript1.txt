@@ -1,0 +1,87 @@
+Warning: Using a password on the command line interface can be insecure.
+--------------
+DROP DATABASE IF EXISTS jjosep56assign2db
+--------------
+
+--------------
+CREATE DATABASE jjosep56assign2db
+--------------
+
+--------------
+GRANT USAGE ON *.* TO 'ta'@'localhost'
+--------------
+
+--------------
+DROP USER 'ta'@'localhost'
+--------------
+
+--------------
+CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319'
+--------------
+
+--------------
+GRANT ALL PRIVILEGES ON jjosep56assign2db.* TO 'ta'@'localhost'
+--------------
+
+--------------
+FLUSH PRIVILEGES
+--------------
+
+--------------
+SHOW TABLES
+--------------
+
+--------------
+CREATE TABLE product (
+        productid VARCHAR(2) NOT NULL,
+        description VARCHAR(20),
+        cost DOUBLE NOT NULL,
+        quantity INT NOT NULL,
+        PRIMARY KEY (productid)
+        )
+--------------
+
+--------------
+CREATE TABLE agent (
+        agentid VARCHAR(2) NOT NULL,
+        firstnameA VARCHAR(30),
+        lastnameA VARCHAR(30),
+        cityA VARCHAR(15),
+        commission INT NOT NULL,
+        PRIMARY KEY (agentid)
+        )
+--------------
+
+--------------
+CREATE TABLE customer (
+        customerid VARCHAR(2),
+        firstnameC VARCHAR(30),
+        lastnameC VARCHAR(30),
+        cityC VARCHAR(15),
+        phonenumber VARCHAR(8),
+        PRIMARY KEY(customerid),
+        dealswith VARCHAR(2),
+        FOREIGN KEY (dealswith) REFERENCES agent(agentid)
+        )
+--------------
+
+--------------
+CREATE TABLE purchases (
+        productid VARCHAR(2) NOT NULL,
+        customerid CHAR(2),
+        quantitypurch INT NOT NULL,
+        PRIMARY KEY (productid, customerid),
+        FOREIGN KEY (productid) references product(productid),
+        FOREIGN KEY (customerid) REFERENCES customer(customerid)
+        )
+--------------
+
+--------------
+SHOW TABLES
+--------------
+
+Tables_in_jjosep56assign2db
+agent
+customer
+product
+purchases
