@@ -1,5 +1,4 @@
 Warning: Using a password on the command line interface can be insecure.
-ERROR 2 (HY000) at line 7: File 'loaddatafall2018.txt' not found (Errcode: 2 - No such file or directory)
 --------------
 LOAD DATA LOCAL INFILE 'loaddatafall2018.txt' INTO TABLE product
 FIELDS TERMINATED BY ','
@@ -7,3 +6,253 @@ LINES TERMINATED BY '\n'
 (productid, description, cost, quantity)
 --------------
 
+--------------
+SELECT * FROM product
+--------------
+
+productid	description	cost	quantity
+11	Bike	150	200
+12	Socks	2	100
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
+--------------
+INSERT INTO product VALUES ('66', 'Elbow pads', '14.25', '120')
+--------------
+
+--------------
+INSERT INTO product VALUES ('69', 'Wrist band', '10', '100')
+--------------
+
+--------------
+INSERT INTO agent VALUES('99','Hugh','Grant','Springfield','16')
+--------------
+
+--------------
+INSERT INTO agent VALUES('22','Courtney','Cox','New York','25')
+--------------
+
+--------------
+INSERT INTO agent VALUES('66','Rosie','ODonnell','Ottawa','100')
+--------------
+
+--------------
+INSERT INTO agent VALUES('33','David','Letterman','Bedrock','100')
+--------------
+
+--------------
+INSERT INTO agent VALUES('11','Regis','Philbin','Boston','33')
+--------------
+
+--------------
+INSERT INTO agent VALUES('12','Rosie','Cox','Ottawa','50')
+--------------
+
+--------------
+INSERT INTO agent VALUES('18','Jermiah','Joseph','Toronto','100')
+--------------
+
+--------------
+INSERT INTO customer VALUES('21','Homer','Simpson','Springfield','686-8956','99')
+--------------
+
+--------------
+INSERT INTO customer VALUES('31','Sideshow','Bob','Springfield','686-5555','66')
+--------------
+
+--------------
+INSERT INTO customer VALUES('12','Monty','Burns','Springfield','789-0000','99')
+--------------
+
+--------------
+INSERT INTO customer VALUES('15','Fred','Flintstone','Bedrock','777-2345','11')
+--------------
+
+--------------
+INSERT INTO customer VALUES('13','Super','Man','Kypto','888-1234','33')
+--------------
+
+--------------
+INSERT INTO customer VALUES('10','Barney','Rubble','Bedrock','777-1234','11')
+--------------
+
+--------------
+INSERT INTO customer VALUES('14','Peter','Griffens','Providence','987-4567','99')
+--------------
+
+--------------
+INSERT INTO purchases VALUES('99','21', 20)
+--------------
+
+--------------
+INSERT INTO purchases VALUES('12','21', 14)
+--------------
+
+--------------
+INSERT INTO purchases VALUES('66','21', 10)
+--------------
+
+--------------
+INSERT INTO purchases VALUES('78','31', 1)
+--------------
+
+--------------
+INSERT INTO purchases VALUES('12','31', 2)
+--------------
+
+--------------
+INSERT INTO purchases VALUES('99','31', 4)
+--------------
+
+--------------
+INSERT INTO purchases VALUES('66','31', 2)
+--------------
+
+--------------
+INSERT INTO purchases VALUES('66','15', 2)
+--------------
+
+--------------
+INSERT INTO purchases VALUES('78','15', 2)
+--------------
+
+--------------
+INSERT INTO purchases VALUES('66','14', 19)
+--------------
+
+--------------
+UPDATE customer SET dealswith = 99 WHERE firstnameC = 'Homer' OR firstnameC = 'Monty' OR firstnameC = 'Peter'
+--------------
+
+--------------
+UPDATE customer SET dealswith = 33 WHERE firstnameC = 'Super'
+--------------
+
+--------------
+UPDATE customer SET dealswith = 11 WHERE firstnameC = 'Barney' OR firstnameC = 'Fred'
+--------------
+
+--------------
+UPDATE customer SET dealswith = 12 WHERE firstnameC = 'Sideshow'
+--------------
+
+--------------
+SELECT * FROM agent
+--------------
+
+agentid	firstnameA	lastnameA	cityA	commission
+11	Regis	Philbin	Boston	33
+12	Rosie	Cox	Ottawa	50
+18	Jermiah	Joseph	Toronto	100
+22	Courtney	Cox	New York	25
+33	David	Letterman	Bedrock	100
+66	Rosie	ODonnell	Ottawa	100
+99	Hugh	Grant	Springfield	16
+--------------
+SELECT * FROM product
+--------------
+
+productid	description	cost	quantity
+11	Bike	150	200
+12	Socks	2	100
+66	Elbow pads	14.25	120
+69	Wrist band	10	100
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
+--------------
+SELECT * FROM purchases
+--------------
+
+productid	customerid	quantitypurch
+12	21	14
+12	31	2
+66	14	19
+66	15	2
+66	21	10
+66	31	2
+78	15	2
+78	31	1
+99	21	20
+99	31	4
+--------------
+SELECT * FROM customer
+--------------
+
+customerid	firstnameC	lastnameC	cityC	phonenumber	dealswith
+10	Barney	Rubble	Bedrock	777-1234	11
+12	Monty	Burns	Springfield	789-0000	99
+13	Super	Man	Kypto	888-1234	33
+14	Peter	Griffens	Providence	987-4567	99
+15	Fred	Flintstone	Bedrock	777-2345	11
+21	Homer	Simpson	Springfield	686-8956	99
+31	Sideshow	Bob	Springfield	686-5555	12
+--------------
+UPDATE customer 
+SET firstnameC = 'Wonder', lastnameC = 'Woman' 
+WHERE (firstnameC = 'Super' AND lastnameC = 'Man')
+--------------
+
+--------------
+UPDATE purchases 
+SET quantitypurch = 5 
+WHERE customerid = ( SELECT  customerid FROM customer WHERE firstnameC = "Sideshow")
+--------------
+
+--------------
+UPDATE customer 
+SET cityC = 'Boston' 
+WHERE dealswith = (SELECT agentid FROM agent WHERE firstnameA = 'Regis')
+--------------
+
+--------------
+SELECT * FROM agent
+--------------
+
+agentid	firstnameA	lastnameA	cityA	commission
+11	Regis	Philbin	Boston	33
+12	Rosie	Cox	Ottawa	50
+18	Jermiah	Joseph	Toronto	100
+22	Courtney	Cox	New York	25
+33	David	Letterman	Bedrock	100
+66	Rosie	ODonnell	Ottawa	100
+99	Hugh	Grant	Springfield	16
+--------------
+SELECT * FROM customer
+--------------
+
+customerid	firstnameC	lastnameC	cityC	phonenumber	dealswith
+10	Barney	Rubble	Boston	777-1234	11
+12	Monty	Burns	Springfield	789-0000	99
+13	Wonder	Woman	Kypto	888-1234	33
+14	Peter	Griffens	Providence	987-4567	99
+15	Fred	Flintstone	Boston	777-2345	11
+21	Homer	Simpson	Springfield	686-8956	99
+31	Sideshow	Bob	Springfield	686-5555	12
+--------------
+SELECT * FROM purchases
+--------------
+
+productid	customerid	quantitypurch
+12	21	14
+12	31	5
+66	14	19
+66	15	2
+66	21	10
+66	31	5
+78	15	2
+78	31	5
+99	21	20
+99	31	5
+--------------
+SELECT * FROM product
+--------------
+
+productid	description	cost	quantity
+11	Bike	150	200
+12	Socks	2	100
+66	Elbow pads	14.25	120
+69	Wrist band	10	100
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
